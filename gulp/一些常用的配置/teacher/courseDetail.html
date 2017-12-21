@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>实习</title>
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/student.css" rel="stylesheet" type="text/css">
+    <script src="/js/jquery.js"></script>
+    <script src="./js/artTemplate/vue.min.js"></script>
+    
+    <script src="./js/business/components.js"></script>
+    <script src="./js/business/courseDetail.js"></script>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <!-- headerlogined -->
+        <header>
+            <img class="logo" src="/images/logo.png" width="283" alt="">
+            <nav>
+                <a href="/student/news/">通知</a>
+                <a href="/student/">
+                    <div class="nav-new">1</div>活动</a>
+                <a href="/student/yunpan/">云盘</a>
+                <a href="/student/weige/wgkb.aspx">微格</a>
+                <div class="clearfix"></div>
+            </nav>
+            <div class="header-right">
+                <div class="user-info">
+                    <img class="user-img" src="/images/user-img.png" width="34" alt="">
+                    <p class="user-name">诸葛垚</p>
+                    <div class="clearfix"></div>
+                    <ul class="user-manu">
+                        <li>
+                            <a href="/student/grzx/MyInfo.aspx">基本资料</a>
+                        </li>
+                        <li>
+                            <a href="/student/grzx/MyGrowth.aspx">成长时间线</a>
+                        </li>
+                        <li>
+                            <a href="/student/grzx/MyAbility.aspx">能力雷达图</a>
+                        </li>
+                        <li>
+                            <a href="/student/grzx/MyComment.aspx">他评模块</a>
+                        </li>
+                        <li>
+                            <a href="/">退出</a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="search-submit">
+                    <img src="/images/search.png" width="13" alt="">
+                </button>
+                <input class="search" value="搜索" onFocus="if(value=='搜索'){value='';style.color='black'}" onBlur="if(!value){value=defaultValue;style.color='#999'}">
+                <div class="clearfix"></div>
+            </div>
+            <script>
+                //搜索框
+                $(".search").focus(function () {
+                    $(this).css("width", "125px").animate({ "width": "150" }, 250);
+                }).blur(function () {
+                    $(this).css("width", "175px").animate({ "width": "100" }, 250)
+                });
+
+                //用户菜单
+                $(".user-info").mouseenter(function () {
+                    if (!$(".user-manu").is(':animated')) {
+                        $(".user-manu").slideDown();
+                    }
+                }).mouseleave(function () {
+
+                    $(".user-manu").slideUp();
+
+                });
+            </script>
+        </header>
+        <!-- headerlogined -->
+        <div class="top-manu">
+            <a class="current" href="/student/Default.aspx">返回</a>
+        </div>
+
+        <div class="white-box SbzVideo">
+                <div>
+                  <div class="new-title">
+                  <p>视频</p>
+                  <h1>三笔字必修视频课程</h1>
+                  <div class="clearfix"></div>
+                </div>    
+                 </div>
+                 <img src="../../images/video.jpg" width="100%">
+                 <div class="clearfix"></div>
+              
+                  <div style="font-size:20px;margin:20px auto;font-weight:bold;">视频研讨：</div>
+                  <!--评论模块-->
+                  <div class="zan_cmtlist" v-for="(item,index) in commentList">
+                      <div class="cmttx"><img src="/images/tx.jpg" alt="" /></div>
+                      <div class="cmtbox">
+                          <div class="cmtbox1"><span><img src="/images/time-icon.png" style="width:15px;float:left; margin-right:5px; margin-top:5px;" />12:01:23</span>mico沫沫</div>
+                          <div class="cmtbox2">啊啊啊啊，要实习啦！员们的到来表示欢迎，围绕地方高校转型发展与人才培养模式创新的主题，介绍了我校办学的历程、规模和目标，详细汇报我校在人才培养与师资队伍建</div>
+                          
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+              
+                  <paging @call="getList" :total="100"></paging>
+              
+                  <!--评论模块-->
+               </div>
+        <!-- footer -->
+        <footer>
+            <div class="footer-top">
+                <div class="container">
+                    <img class="footer-xiaoxun" src="/images/footer-xiaoxun.png" width="131" alt="">
+                    <div class="link">
+                        <a href="javascript:;" target="_blank">浙江省教育厅</a>
+                        <a href="javascript:;" target="_blank">信息公开</a>
+                        <a href="javascript:;" target="_blank">书记信箱</a>
+                        <a href="javascript:;" target="_blank">校长信箱</a>
+                        <a href="javascript:;" target="_blank">网络导航</a>
+                        <a href="javascript:;" target="_blank">本科招生</a>
+                        <a href="javascript:;" target="_blank">研究生招生</a>
+                        <a href="javascript:;" target="_blank">留学生招生</a>
+                        <a href="javascript:;" target="_blank">成教招生</a>
+                        <a href="javascript:;" target="_blank">自考招生</a>
+                        <a href="javascript:;" target="_blank">内部网</a>
+                        <a href="javascript:;" target="_blank">办事大厅</a>
+                        <a href="javascript:;" target="_blank">就业网</a>
+                        <a href="javascript:;" target="_blank">迎新网</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <img class="footer-code" src="/images/footer-code.png" width="66" alt="">
+                </div>
+            </div>
+            <div class="footer-bottom">地址：浙江省金华市迎宾大道688号 邮编：321004 浙ICP备05001954号 E-Mail:webserver@zjnu.cn</div>
+        </footer>
+        <!-- footer -->
+    </form>
+</body>
+
+</html>
