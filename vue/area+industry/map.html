@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        #l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+        #r-result{height:100%;width:20%;float:left;}
+    </style>
+    <title>商户装机地图</title>
+    <link rel="stylesheet" href="./map/css/map.css?v=7b88fcb8ab1">
+    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="./map/js/vue.min.js"></script>
+    <script src="./map/js/data.js?v=27954f3d5a1"></script>
+    <script src="./map/js/industrys.js?v=7b88fcb8ab1"></script>
+    <script src="./map/js/map.js?v=121b8e8"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=0QqolAuKtOQO2MafynHDOjQ3fh8PV81B"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+</head>
+
+<body>
+<div id="map-container">
+    <vue-area>
+    </vue-area>
+</div>
+<div id="allmap"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+    var citys = "长沙";
+    var areas = "";
+    var industrys = "";
+    var markers = [];
+
+    var map = new BMap.Map("allmap");
+    var localSearch = new BMap.LocalSearch(map, {
+        renderOptions: {
+            pageCapacity: 8,
+            autoViewport: true,
+            selectFirstResult: false
+        }
+    });
+    localSearch.enableAutoViewport();
+
+    function postData(province,city, area, industry) {
+        markers=[];
+        if (area == null || area == "") {
+            localSearch.setSearchCompleteCallback(function (searchResult) {
+                var poi = searchResult.getPoi(0);
+                map.centerAndZoom(poi.point, 13);
+            });
+            localSearch.search(city);
+        } else {
+            localSearch.setSearchCompleteCallback(function (searchResult) {
+                var poi = searchResult.getPoi(0);
+                map.centerAndZoom(poi.point, 14);
+            });
+            localSearch.search(area);
+        }
+        map.enableScrollWheelZoom();
+
+        $.getJSON('./map/json/map.json?province='+
+        province+"&city="+city+"&area="+area+"&industryid="+industry,
+        function (res) { //返回json结果
+                for (var i = 0; i < res.data.length; i++) {
+                    var point = new BMap.Point(res.data[i].lng, res.data[i].lat);
+                    var marker = new BMap.Marker(point);
+                    (function () {
+                        var thePoint = res.data[i];
+                        marker.addEventListener("click",
+                                //显示信息的方法
+                                function () {
+                                    showInfo(this, thePoint);
+                                });
+                    })();
+                    markers.push(marker);
+                }
+                var markerClusterer = new BMapLib.MarkerClusterer(map, { markers: markers });
+            });
+    }
+    function showInfo(thisMarker, point) {
+        //获取点的信息
+        var sContent =
+                '<ul style="margin:0 0 5px 0;padding:0.2em 0">'
+                + '<li style="line-height: 26px;font-size: 15px;">'
+                + '<span style="width: 80px;display: inline-block;">商户名称：</span>' +point.busName + '</li>'
+                + '<li style="line-height: 26px;font-size: 15px;">'
+                + '<span style="width: 80px;display: inline-block;">电话号码：</span>' + (point.phone==null?"":point.phone) + '</li>'
+                + '<li style="line-height: 26px;font-size: 15px;">'
+                + '<span style="width: 80px;display: inline-block;">详细地址：</span>'+(point.address==null?"":point.address) +'</li>'
+                + '</ul>';
+        var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
+        thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
+    }
+
+</script>
+<script>
+    window.search = function (areaInfo, industryInfo) {
+        var province, city, area, industy;
+        province = areaInfo.provinceName;
+        city = areaInfo.cityName;
+        area = areaInfo.areaName;
+        industry = industryInfo.pid;
+        if (!province) {
+            alert("请选择省份");
+            return;
+        }
+        if (!city) {
+            alert("请选择城市");
+            return;
+        }
+        if (area == null) {
+            area = "";
+        }
+        if (industry == null)
+        {
+            industry="";
+        }
+        province =province.substr(0,province.length-1);
+        city=city.substr(0,city.length-1);
+        postData(province,city, area, industry);
+    }
+    postData("湖南",'长沙', "","");
+</script>
