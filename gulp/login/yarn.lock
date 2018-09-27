@@ -896,6 +896,12 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+clean-css@4.2.1:
+  version "4.2.1"
+  resolved "http://registry.npm.taobao.org/clean-css/download/clean-css-4.2.1.tgz#2d411ef76b8569b6d0c84068dabe85b0aa5e5c17"
+  dependencies:
+    source-map "~0.6.0"
+
 cliui@^2.1.0:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/cliui/download/cliui-2.1.0.tgz#4b475760ff80264c762c3a1719032e91c7fea0d1"
@@ -1765,6 +1771,15 @@ gulp-babel@^7.0.0:
     through2 "^2.0.0"
     vinyl-sourcemaps-apply "^0.2.0"
 
+gulp-clean-css@^3.10.0:
+  version "3.10.0"
+  resolved "http://registry.npm.taobao.org/gulp-clean-css/download/gulp-clean-css-3.10.0.tgz#bccd4605eff104bfa4980014cc4b3c24c571736d"
+  dependencies:
+    clean-css "4.2.1"
+    plugin-error "1.0.1"
+    through2 "2.0.3"
+    vinyl-sourcemaps-apply "0.2.1"
+
 gulp-concat@^2.6.1:
   version "2.6.1"
   resolved "http://registry.npm.taobao.org/gulp-concat/download/gulp-concat-2.6.1.tgz#633d16c95d88504628ad02665663cee5a4793353"
@@ -1875,6 +1890,15 @@ gulp-uglify@^3.0.0:
     through2 "^2.0.0"
     uglify-js "^3.0.5"
     vinyl-sourcemaps-apply "^0.2.0"
+
+gulp-uglifycss@^1.1.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/gulp-uglifycss/download/gulp-uglifycss-1.1.0.tgz#95ba1ff6cbd046edfa1c074de477a9bea4410a1a"
+  dependencies:
+    plugin-error "^1.0.1"
+    through2 "^2.0.3"
+    uglifycss "^0.0.25"
+    vinyl "^2.1.0"
 
 gulp-util@>=3.0.0, gulp-util@^3.0.0, gulp-util@^3.0.6:
   version "3.0.8"
@@ -3245,6 +3269,15 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "http://registry.npm.taobao.org/pinkie/download/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
+plugin-error@1.0.1, plugin-error@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/plugin-error/download/plugin-error-1.0.1.tgz#77016bd8919d0ac377fdcdd0322328953ca5781c"
+  dependencies:
+    ansi-colors "^1.0.1"
+    arr-diff "^4.0.0"
+    arr-union "^3.1.0"
+    extend-shallow "^3.0.2"
+
 plugin-error@^0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/plugin-error/download/plugin-error-0.1.2.tgz#3b9bb3335ccf00f425e07437e19276967da47ace"
@@ -3254,15 +3287,6 @@ plugin-error@^0.1.2:
     arr-diff "^1.0.1"
     arr-union "^2.0.1"
     extend-shallow "^1.1.2"
-
-plugin-error@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/plugin-error/download/plugin-error-1.0.1.tgz#77016bd8919d0ac377fdcdd0322328953ca5781c"
-  dependencies:
-    ansi-colors "^1.0.1"
-    arr-diff "^4.0.0"
-    arr-union "^3.1.0"
-    extend-shallow "^3.0.2"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -3930,7 +3954,7 @@ ternary-stream@^2.0.1:
     merge-stream "^1.0.0"
     through2 "^2.0.1"
 
-through2@2.X, through2@>=0.5.1, through2@^2.0.0, through2@^2.0.1, through2@^2.0.3:
+through2@2.0.3, through2@2.X, through2@>=0.5.1, through2@^2.0.0, through2@^2.0.1, through2@^2.0.3:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/through2/download/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:
@@ -4046,6 +4070,10 @@ uglify-js@^3.0.5:
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/uglify-to-browserify/download/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
+
+uglifycss@^0.0.25:
+  version "0.0.25"
+  resolved "http://registry.npm.taobao.org/uglifycss/download/uglifycss-0.0.25.tgz#bea72bf4979eacef13a302cf47b2d1af3f344197"
 
 uglifyjs-webpack-plugin@^0.4.6:
   version "0.4.6"
@@ -4171,7 +4199,7 @@ vinyl-fs@^0.3.0:
     through2 "^0.6.1"
     vinyl "^0.4.0"
 
-vinyl-sourcemaps-apply@^0.2.0:
+vinyl-sourcemaps-apply@0.2.1, vinyl-sourcemaps-apply@^0.2.0:
   version "0.2.1"
   resolved "http://registry.npm.taobao.org/vinyl-sourcemaps-apply/download/vinyl-sourcemaps-apply-0.2.1.tgz#ab6549d61d172c2b1b87be5c508d239c8ef87705"
   dependencies:

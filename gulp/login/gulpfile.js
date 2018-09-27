@@ -8,7 +8,8 @@ var del = require("del");
 //合并 压缩 重命名
 var concat = require("gulp-concat"),
   uglify = require("gulp-uglify"),
-  rename = require("gulp-rename");
+  rename = require("gulp-rename"),
+  cleanCSS = require("gulp-clean-css");
 
 //html替换
 var htmlreplace = require("gulp-html-replace");
@@ -63,11 +64,13 @@ gulp.task("bus", function(cb) {
   console.log(1);
   runSequence(
     "clean:" + exportDir,
-    "copy",
+    "css",
+    "img",
+    // "copy",
     "js",
-    "js-html",
-    "filemd5",
-    "filemd52"
+    "js-html"
+    // "filemd5",
+    // "filemd52"
   )();
 });
 
@@ -92,7 +95,7 @@ gulp.task(
   "js",
   () =>
     gulp
-      .src("./student/js/business/*.js")
+      .src("./js/*.js")
       //转换成 ES5
       .pipe(babel())
       //合并所有js到main.jsmain.js到文件夹
@@ -100,9 +103,9 @@ gulp.task(
       //rename压缩后的文件名
       // .pipe(rename({ suffix: '.min' }))
       //压缩
-      .pipe(gulpif(production, uglify()))
+      // .pipe(gulpif(production, uglify()))
       //输出
-      .pipe(gulp.dest(exportDir + "/student/js/business")) &&
+      .pipe(gulp.dest(exportDir + "/js")) &&
     gulp
       .src("./teacher/js/business/*.js")
       //转换成 ES5
@@ -122,12 +125,12 @@ gulp.task(
   "js-html",
   () =>
     gulp
-      .src(["./student/*.html", "./student/*.aspx"])
+      .src(["./login.html", "./*.html"])
       //转换成 ES5
       // .pipe(htmlreplace())
       //输出
       .pipe(convertEncoding({ to: "utf8" }))
-      .pipe(gulp.dest(exportDir + "/student/")) &&
+      .pipe(gulp.dest(exportDir)) &&
     gulp
       .src(["./teacher/*.html", "./teacher/*.aspx"])
       .pipe(convertEncoding({ to: "utf8" }))
@@ -136,10 +139,7 @@ gulp.task(
 
 gulp.task("filemd5", () =>
   gulp
-    .src([
-      exportDir + "/student/js/business/*.js",
-      exportDir + "/teacher/js/business/*.js"
-    ])
+    .src([exportDir + "./hs/*.js"])
     // .pipe(rev())
     // .pipe(gulp.dest(exportDir + '/student/js/business'))
     // .pipe(rev.manifest())
@@ -190,25 +190,24 @@ gulp.task("es6", () =>
     .pipe(gulp.dest(exportDir + "/student/business"))
 );
 
-// gulp.task('img', () => {
-//     gulp.src('./res/img/*.png')
-//         .pipe(gulp.dest('dist/res/img'))
-//     gulp.src('./res/zsjm/*.*')
-//         .pipe(gulp.dest('dist/res/zsjm'))
-// }
+gulp.task("img", () => {
+  gulp.src("./images/*.png").pipe(gulp.dest(exportDir + "/images"));
+});
 
-// );
-
-// gulp.task('css', () =>
-//     gulp.src('./res/*.css')
-//         // .pipe(sourcemaps.init())
-//         .pipe(autoprefixer({
-//             browsers: ['last 2 versions', '>1%'],
-//             cascade: false
-//         }))
-//         // .pipe(sourcemaps.write('.'))
-//         .pipe(gulp.dest('dist/res'))
-// );
+gulp.task("css", () =>
+  gulp
+    .src("./css/*.css")
+    // .pipe(sourcemaps.init())
+    .pipe(
+      autoprefixer({
+        browsers: ["last 2 versions", ">1%"],
+        cascade: false
+      })
+    )
+    // .pipe(cleanCSS())
+    // .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(exportDir + "/css"))
+);
 
 // gulp.task('revCss', function () {
 //     gulp.src('./res/*.css')
