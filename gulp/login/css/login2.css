@@ -93,7 +93,7 @@ body {
 
 /* 二维码图片 */
 .qrcode-img {
-  margin: 0 auto 50px;
+  margin: 0 auto 30px;
   line-height: 0;
   justify-content: center;
   align-items: center;
@@ -112,7 +112,7 @@ body {
 
 .cutButton {
   border-top: 1px solid #ebebeb;
-  padding: 50px 0;
+  padding: 10px 0;
   font-size: 14px;
   color: #f40;
 }
@@ -150,28 +150,37 @@ body {
 
 .form-login .form-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.form-container .form-item {
+  padding-bottom: 10px;
+}
+
 .form-login input[type="text"] {
   height: 35px;
-  width: 180px;
-  border: 1px solid #a9a9a9;
-  padding-left: 2px;
+  width: 200px;
+  padding-left: 8px;
+  /* border: 1px solid #a9a9a9; */
+  /* padding-left: 2px; */
 }
 
 .form-login label {
   color: #fff;
+  width: 80px;
+  text-align: right;
+  display: inline-block;
 }
 
 .form-login .button {
-  width: 60px;
+  width: 200px;
   background-color: #e9983c;
   border: 0px;
   color: #fff;
   display: inline-block;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   line-height: 33px;
 }
 
@@ -180,14 +189,18 @@ body {
 } */
 
 .desc {
-  margin-top: 15px;
+  margin-bottom: 8px;
   color: #f40;
-  width: 290px;
-  line-height: 50px;
+  /* width: 290px; */
+  line-height: 40px;
+  height: 40px;
   background-color: rgba(0, 0, 0, 0.48);
   color: #fff;
   font-size: 14px;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .show {
@@ -211,4 +224,94 @@ body {
   color: #fff;
   cursor: pointer;
   width: 100px;
+}
+
+/* 验证码 */
+.validate-code {
+  position: relative;
+}
+
+.code-link {
+  position: absolute;
+  right: 6px;
+  top: 0px;
+  line-height: 35px;
+  font-size: 6px;
+  text-decoration-line: underline;
+  color: #72ace3;
+  z-index: 2;
+}
+
+.count-down {
+  color: #8590a6;
+  cursor: auto;
+  text-decoration-line: none;
+  z-index: 2;
+}
+
+#submit {
+  cursor: pointer;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.form-item-content {
+  position: relative;
+  display: inline-block;
+}
+
+.error-tip {
+  padding-left: 8px;
+  color: red;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 180px;
+  height: 35px;
+  text-align: left;
+  line-height: 35px;
+  font-size: 14px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.tip {
+  line-height: 18px;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+@media screen and (max-height: 1000px) {
+  .login-header {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .login-header {
+    margin-top: 20px;
+  }
+
+  .desc {
+    line-height: 20px;
+    height: 20px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .homepage {
+    padding-right: 0;
+  }
+
+  .login-content {
+    margin-left: 0;
+    margin: 0;
+  }
+
+  .login-header {
+    margin-left: 0;
+    margin: 0;
+  }
 }

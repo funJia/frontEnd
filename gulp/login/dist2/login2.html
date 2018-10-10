@@ -40,14 +40,29 @@
                   <!-- <span id="unableLogin" class="link-button show">无法登录？</span> -->
                   <div>
                     <div id="form-login" class="form-login hide">
+                      <div class="desc visibility-hidden"><img src="./images/tip.png" width="18px" />
+                        <span class="tip">验证码已发送至技术部测试人员和主客服</span></div>
                       <div class="form-info">
                         <div class="form-container">
-                          <label for="">账号：</label>
-                          <input type="text" id="account" placeholder="请输入登录账号">
-                          <button class="button" id="submit">确定</button>
+                          <div class="form-item" data-type="phone">
+                            <!-- <label for="">手机号码：</label> -->
+                            <div class="form-item-content">
+                              <input type="text" id="account" placeholder="请输入手机号码">
+                              <div class="error-tip hide">请输入手机号</div>
+                            </div>
+                          </div>
+                          <div class="form-item validate-code" data-type="code">
+                            <!-- <label for="">验证码：</label> -->
+                            <div class="form-item-content">
+                              <input type="text" id="code" placeholder="请输入验证码">
+                              <a href="javascript:void(0)" class="code-link" id="codeLink">获取验证码</a>
+                              <span class="code-link count-down hide" id="countDown"></span>
+                              <div class="error-tip hide">请输入验证码</div>
+                            </div>
+                          </div>
+                          <button class="button" id="submit">登录</button>
                           <!-- <a href="javascript:void(0)" class="button" id="submit">确定</a> -->
                         </div>
-                        <div class="desc">输入账号后请联系技术部获取登录地址</div>
                       </div>
                     </div>
                   </div>
