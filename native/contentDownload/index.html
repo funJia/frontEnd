@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+    crossorigin="anonymous"></script>
+  <script>
+    var ishomeneedchange = true // 全局变量当home页面的内容改变时才去查询数据库获取页面的值，否则不进行查询
+    function get(url) {
+      // if (ishomeneedchange) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {//服务器返回值的处理函数，此处使用匿名函数进行实现
+      };
+      xhr.open("GET", url, true);//提交get请求到服务器
+      xhr.send();
+      //xhr.send("submitDateStart=&submitDateEnd=&verifyTimeStart=&verifyTimeEnd=&goTimeStart=&goTimeEnd=&orderPayStatus=&stepStatus=&itemNumber=&headId=&isMail=&countryId=&cityId=&categoryId=&fromSource=&isImmediate=&contactName=&phone=&tMallCode=&skuName=&supplierCode=&travelCompany=&addRemark=&groupNumber=&account=&destination=&queryHistory=0&page=1&rows=30&type=1")
+      // }
+    }
+
+    function quest(url, data, method) {
+      $.ajax({
+        // headers: {
+        //   "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+        // },
+        headers: {
+          // Accept: "application/json, text/plain, */*",
+          // "Access-Control-Allow-Origin": "http://b.test.com",
+          // 'Cookie': document.cookie,
+        },
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true,
+        responseType: "json",
+        data: data,
+        url: url,
+        type: method,
+        success: function (data) {
+        }
+      });
+      //$.get(" http://erpapi.cattrip.net/erp/order/getFromSource?id=0");
+      // $.get("http://erpapi.cattrip.net/erp/order/getOrderList?submitDateStart=&submitDateEnd=&verifyTimeStart=&verifyTimeEnd=&goTimeStart=&goTimeEnd=&orderPayStatus=&stepStatus=&itemNumber=&headId=&isMail=&countryId=&cityId=&categoryId=&fromSource=&isImmediate=&contactName=&phone=&tMallCode=&skuName=&supplierCode=&travelCompany=&addRemark=&groupNumber=&account=&destination=&queryHistory=0&page=1&rows=30&type=1");
+      // $.get("http://erpapi.cattrip.net/erp/order/getOrderList?submitDateStart=&submitDateEnd=&verifyTimeStart=&verifyTimeEnd=&goTimeStart=&goTimeEnd=&orderPayStatus=&stepStatus=&itemNumber=&headId=&isMail=&countryId=&cityId=&categoryId=&fromSource=&isImmediate=&contactName=&phone=&tMallCode=&skuName=&supplierCode=&travelCompany=&addRemark=&groupNumber=&account=&destination=&queryHistory=0&page=1&rows=30&type=1");
+    }
+
+    function test(page) {
+      quest("http://erpapi.cattrip.net/erp/order/getOrderList?submitDateStart=&submitDateEnd=&verifyTimeStart=&verifyTimeEnd=&goTimeStart=&goTimeEnd=&orderPayStatus=&stepStatus=&itemNumber=&headId=&isMail=&countryId=&cityId=&categoryId=&fromSource=&isImmediate=&contactName=&phone=&tMallCode=&skuName=&supplierCode=&travelCompany=&addRemark=&groupNumber=&account=&destination=&queryHistory=0&page=" + page + "&rows=30&type=1", null, "post");
+      quest("http://erpapi.cattrip.net/erp/order/getOrderListSum", {
+        queryHistory: 0,
+        page: page,
+        rows: 30,
+        type: 1,
+        queryNum: 2
+      }, "post");
+      quest("http://erpapi.cattrip.net/erp/order/getOrderListSum", {
+        queryHistory: 0,
+        page: page,
+        rows: 30,
+        type: 1,
+        queryNum: 1
+      }, "post");
+    }
+
+    // quest();
+
+    var num = 1;
+    function page() {
+      num++;
+      test(num);
+    }
+
+  </script>
+</head>
+
+<body onload="test(1)" style="background: url(http://admin.cattrip.net/assets/image/lanmao.png);">
+  <button onclick="page()">分页</button>
+</body>
+
+</html>
